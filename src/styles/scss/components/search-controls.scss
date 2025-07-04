@@ -22,7 +22,7 @@ $blur-sm: blur(4px);
   .search-form {
     position: relative;
     flex: 1;
-    svg {
+    img {
       position: absolute;
       left: 0.75rem;
       top: 50%;
@@ -62,7 +62,7 @@ $blur-sm: blur(4px);
     &:hover {
       background: rgba(255,255,255,0.30);
     }
-    svg {
+    img {
       height: 1rem;
       width: 1rem;
     }
@@ -92,7 +92,7 @@ $blur-sm: blur(4px);
     background: transparent;
     color: rgba(255,255,255,0.80);
     cursor: pointer;
-    svg {
+    img {
       height: 1rem;
       width: 1rem;
     }

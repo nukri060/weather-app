@@ -1,0 +1,128 @@
+$white: #fff;
+$blue-100: #dbeafe;
+$blue-200: #bfdbfe;
+$gray-300: #d1d5db;
+$bg-glass: rgba(255,255,255,0.10);
+$border-glass: rgba(255,255,255,0.20);
+$text-white: #fff;
+$text-blue-100: #dbeafe;
+$shadow-md: 0 4px 12px rgba(0,0,0,0.10);
+
+.weather-section {
+  margin: 2rem 0;
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+}
+
+.weather-card {
+  border-radius: 0.75rem;
+  border: 1px solid $border-glass;
+  background: $bg-glass;
+  backdrop-filter: blur(12px);
+  color: $text-white;
+  box-shadow: $shadow-md;
+  overflow: hidden;
+}
+
+.weather-card__content {
+  padding: 2rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: center;
+  @media (min-width: 1024px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.weather-card__main {
+  text-align: center;
+  @media (min-width: 1024px) {
+    text-align: left;
+  }
+}
+
+.weather-card__icon-temp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+  @media (min-width: 1024px) {
+    justify-content: flex-start;
+  }
+}
+
+.weather-card__icon {
+  width: 4rem;
+  height: 4rem;
+  color: $gray-300;
+}
+
+.weather-card__temp {
+  font-size: 3.5rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.weather-card__desc {
+  font-size: 1.25rem;
+  color: $blue-100;
+  text-transform: capitalize;
+}
+
+.weather-card__feels {
+  font-size: 1.125rem;
+  color: $blue-100;
+  margin-bottom: 1rem;
+}
+
+.weather-card__hl {
+  display: flex;
+  gap: 1.5rem;
+  color: $blue-100;
+  justify-content: center;
+  @media (min-width: 1024px) {
+    justify-content: flex-start;
+  }
+}
+
+.weather-card__details {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  @media (min-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.weather-detail {
+  background: $bg-glass;
+  border-radius: 0.75rem;
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.weather-detail__icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: $blue-200;
+  margin-bottom: 0.5rem;
+}
+
+.weather-detail__label {
+  font-size: 0.95rem;
+  color: $blue-200;
+}
+
+.weather-detail__value {
+  font-size: 1.25rem;
+  font-weight: 600;
+} 

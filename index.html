@@ -11,129 +11,31 @@
     <header>
       <div class="header-container">
         <div class="location-info">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-map-pin h-5 w-5"
-          >
-            <path
-              d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
-            ></path>
-            <circle cx="12" cy="10" r="3"></circle>
-          </svg>
+          <img src="src/icons/map-pin.svg" width="24" height="24" class="lucide lucide-map-pin h-5 w-5" alt="Location" />
           <h3 class="current-location">Batumi, GE</h3>
           <p>Updated 2:01:21 PM</p>
         </div>
         <div class="search-controls">
           <div class="search-group">
             <form class="search-form flex-1">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="11" cy="11" r="8"></circle>
-                <path d="m21 21-4.3-4.3"></path>
-              </svg>
+              <img src="src/icons/search.svg" width="24" height="24" alt="Search" />
               <input placeholder="Search location..." value="" />
             </form>
             <button class="refresh-btn">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path
-                  d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"
-                ></path>
-                <path d="M21 3v5h-5"></path>
-                <path
-                  d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"
-                ></path>
-                <path d="M8 16H3v5"></path>
-              </svg>
+              <img src="src/icons/refresh-cw.svg" width="24" height="24" alt="Refresh" />
             </button>
           </div>
           <div class="theme-group">
             <button class="theme-btn active">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="12" cy="12" r="4"></circle>
-                <path d="M12 2v2"></path>
-                <path d="M12 20v2"></path>
-                <path d="m4.93 4.93 1.41 1.41"></path>
-                <path d="m17.66 17.66 1.41 1.41"></path>
-                <path d="M2 12h2"></path>
-                <path d="M20 12h2"></path>
-                <path d="m6.34 17.66-1.41 1.41"></path>
-                <path d="m19.07 4.93-1.41 1.41"></path>
-              </svg>
+              <img src="src/icons/sun.svg" width="24" height="24" alt="Day" />
               <span class="hidden sm-inline ml-1">Day</span>
             </button>
             <button class="theme-btn">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path>
-              </svg>
+              <img src="src/icons/moon.svg" width="24" height="24" alt="Night" />
               <span class="hidden sm-inline ml-1">Night</span>
             </button>
             <button class="theme-btn">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-              >
-                <circle cx="13.5" cy="6.5" r=".5" fill="currentColor"></circle>
-                <circle cx="17.5" cy="10.5" r=".5" fill="currentColor"></circle>
-                <circle cx="8.5" cy="7.5" r=".5" fill="currentColor"></circle>
-                <circle cx="6.5" cy="12.5" r=".5" fill="currentColor"></circle>
-                <path
-                  d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"
-                ></path>
-              </svg>
+              <img src="src/icons/palette.svg" width="24" height="24" alt="Gradient" />
               <span class="hidden sm-inline ml-1">Gradient</span>
             </button>
           </div>
@@ -144,5 +46,49 @@
         </div>
       </div>
     </header>
+    <section class="weather-section" aria-label="Current weather">
+      <div class="container">
+        <div class="weather-card">
+          <div class="weather-card__content">
+            <div class="weather-card__main">
+              <div class="weather-card__icon-temp">
+                <img src="src/icons/cloud.svg" width="64" height="64" class="lucide lucide-cloud weather-card__icon" alt="Cloud" />
+                <div>
+                  <p class="weather-card__temp">16°C</p>
+                  <p class="weather-card__desc">overcast clouds</p>
+                </div>
+              </div>
+              <p class="weather-card__feels">Feels like 16°C</p>
+              <div class="weather-card__hl">
+                <span>H: 16°</span>
+                <span>L: 16°</span>
+              </div>
+            </div>
+            <div class="weather-card__details">
+              <div class="weather-detail">
+                <img src="src/icons/wind.svg" width="24" height="24" class="lucide lucide-wind weather-detail__icon" alt="Wind" />
+                <p class="weather-detail__label">Wind</p>
+                <p class="weather-detail__value">9 km/h</p>
+              </div>
+              <div class="weather-detail">
+                <img src="src/icons/droplets.svg" width="24" height="24" class="lucide lucide-droplets weather-detail__icon" alt="Humidity" />
+                <p class="weather-detail__label">Humidity</p>
+                <p class="weather-detail__value">94%</p>
+              </div>
+              <div class="weather-detail">
+                <img src="src/icons/eye.svg" width="24" height="24" class="lucide lucide-eye weather-detail__icon" alt="Visibility" />
+                <p class="weather-detail__label">Visibility</p>
+                <p class="weather-detail__value">5 km</p>
+              </div>
+              <div class="weather-detail">
+                <img src="src/icons/thermometer.svg" width="24" height="24" class="lucide lucide-thermometer weather-detail__icon" alt="Pressure" />
+                <p class="weather-detail__label">Pressure</p>
+                <p class="weather-detail__value">1016 hPa</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </body>
 </html>
