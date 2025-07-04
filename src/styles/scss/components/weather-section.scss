@@ -25,6 +25,14 @@ $shadow-md: 0 4px 12px rgba(0,0,0,0.10);
   color: $text-white;
   box-shadow: $shadow-md;
   overflow: hidden;
+  transition: opacity 0.4s;
+  opacity: 1;
+  &.fade-out {
+    opacity: 0;
+  }
+  &.fade-in {
+    opacity: 1;
+  }
 }
 
 .weather-card__content {

@@ -407,6 +407,15 @@ header {
   -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
           box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  -webkit-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+  opacity: 1;
+}
+.weather-card.fade-out {
+  opacity: 0;
+}
+.weather-card.fade-in {
+  opacity: 1;
 }
 
 .weather-card__content {
