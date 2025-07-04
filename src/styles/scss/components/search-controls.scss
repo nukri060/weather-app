@@ -1,0 +1,108 @@
+$white: #fff;
+$blue-600: #2563eb;
+$blur-sm: blur(4px);
+
+.search-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  align-items: center;
+  
+  @media (min-width: 640px) {
+    flex-direction: row;
+  }
+
+  .search-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    flex: 1;
+  }
+
+  .search-form {
+    position: relative;
+    flex: 1;
+    svg {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 1rem;
+      width: 1rem;
+      color: #9ca3af;
+    }
+    input {
+      width: 100%;
+      border-radius: 0.375rem;
+      border: 1px solid rgba(255,255,255,0.30);
+      padding: 0.5rem 0.75rem 0.5rem 2.5rem;
+      font-size: 1rem;
+      background: rgba(255,255,255,0.90);
+      min-width: 250px;
+      outline: none;
+      transition: box-shadow 0.2s;
+      &:focus {
+        box-shadow: 0 0 0 2px #2563eb33;
+      }
+    }
+  }
+
+  .refresh-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 2.25rem;
+    border-radius: 0.375rem;
+    padding: 0 0.75rem;
+    background: rgba(255,255,255,0.20);
+    color: $white;
+    border: 1px solid rgba(255,255,255,0.30);
+    transition: background 0.3s;
+    &:hover {
+      background: rgba(255,255,255,0.30);
+    }
+    svg {
+      height: 1rem;
+      width: 1rem;
+    }
+  }
+
+  .theme-group, .unit-group {
+    display: flex;
+    gap: 0.25rem;
+    background: rgba(255,255,255,0.20);
+    border-radius: 0.5rem;
+    padding: 0.25rem;
+    backdrop-filter: $blur-sm;
+  }
+
+  .theme-btn, .unit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 2.25rem;
+    border-radius: 0.375rem;
+    padding: 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: all 0.3s;
+    border: none;
+    background: transparent;
+    color: rgba(255,255,255,0.80);
+    cursor: pointer;
+    svg {
+      height: 1rem;
+      width: 1rem;
+    }
+    &.active, &:hover {
+      background: $white;
+      color: $blue-600;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+    &.active {
+      font-weight: 600;
+    }
+  }
+} 
