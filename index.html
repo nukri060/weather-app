@@ -1,71 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="src/styles/css/main.css" />
-  </head>
-
-  <body>
-    <header>
-      <div class="header-container">
-        <div class="location-info">
-          <img src="src/icons/map-pin.svg" width="24" height="24" class="lucide lucide-map-pin h-5 w-5" alt="Location" />
-          <h3 class="current-location">Batumi, GE</h3>
-          <p>Updated 2:01:21 PM</p>
-        </div>
-        <div class="search-controls">
-          <div class="search-group">
-            <form class="search-form flex-1">
-              <img src="src/icons/search.svg" width="24" height="24" alt="Search" />
-              <input placeholder="Search location..." value="" />
-            </form>
-            <button class="refresh-btn">
-              <img src="src/icons/refresh-cw.svg" width="24" height="24" alt="Refresh" />
-            </button>
-          </div>
-          <div class="theme-group">
-            <button class="theme-btn active">
-              <img src="src/icons/sun.svg" width="24" height="24" alt="Day" />
-              <span class="hidden sm-inline ml-1">Day</span>
-            </button>
-            <button class="theme-btn">
-              <img src="src/icons/moon.svg" width="24" height="24" alt="Night" />
-              <span class="hidden sm-inline ml-1">Night</span>
-            </button>
-            <button class="theme-btn">
-              <img src="src/icons/palette.svg" width="24" height="24" alt="Gradient" />
-              <span class="hidden sm-inline ml-1">Gradient</span>
-            </button>
-          </div>
-          <div class="unit-group">
-            <button class="unit-btn active">°C</button>
-            <button class="unit-btn">°F</button>
-          </div>
-        </div>
-      </div>
-    </header>
-    <section class="weather-section" aria-label="Current weather">
-      <div class="container">
-        <p class="weather-section__placeholder">Enter a city</p>
-      </div>
-    </section>
-    <section class="weather-forecast" aria-label="Weather forecast">
-      <div class="weather-forecast-wrapper">
-        <nav class="forecast-control">
-          <button class="forecast-control__btn active">Today</button>
-          <button class="forecast-control__btn">Hourly</button>
-          <button class="forecast-control__btn">Next 7 days</button>
-          <button class="forecast-control__btn">Next 14 days</button>
-          <button class="forecast-control__btn">Next 30 days</button>
-        </nav>
-        <div class="forecast-content">
-
-        </div>
-      </div>
-    </section>
-    <script src="src/javascript/app.js"></script>
-    <script src="src/javascript/forecast-control.js"></script>
-  </body>
+   <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>Document</title>
+      <link rel="stylesheet" href="src/styles/css/main.css" />
+   </head>
+   <body>
+      <header>
+         <div class="header-container">
+            <div class="location-info">
+               <img src="src/icons/map-pin.svg" width="24" height="24" class="lucide lucide-map-pin h-5 w-5" alt="Location" />
+               <h3 class="current-location">Batumi, GE</h3>
+               <p>Updated 2:01:21 PM</p>
+            </div>
+            <div class="search-controls">
+               <div class="search-group">
+                  <form class="search-form flex-1">
+                     <img src="src/icons/search.svg" width="24" height="24" alt="Search" />
+                     <input placeholder="Search location..." value="" />
+                  </form>
+                  <button class="refresh-btn">
+                  <img src="src/icons/refresh-cw.svg" width="24" height="24" alt="Refresh" />
+                  </button>
+               </div>
+               <div class="theme-group">
+                  <button class="theme-btn active">
+                  <img src="src/icons/sun.svg" width="24" height="24" alt="Day" />
+                  <span class="hidden sm-inline ml-1">Day</span>
+                  </button>
+                  <button class="theme-btn">
+                  <img src="src/icons/moon.svg" width="24" height="24" alt="Night" />
+                  <span class="hidden sm-inline ml-1">Night</span>
+                  </button>
+                  <button class="theme-btn">
+                  <img src="src/icons/palette.svg" width="24" height="24" alt="Gradient" />
+                  <span class="hidden sm-inline ml-1">Gradient</span>
+                  </button>
+               </div>
+               <div class="unit-group">
+                  <button class="unit-btn active">°C</button>
+                  <button class="unit-btn">°F</button>
+               </div>
+            </div>
+         </div>
+      </header>
+      <section class="weather-section" aria-label="Current weather">
+         <div class="container">
+            <p class="weather-section__placeholder">Enter a city</p>
+         </div>
+      </section>
+      <section class="weather-forecast" aria-label="Weather forecast">
+         <div class="weather-forecast-wrapper">
+            <nav class="forecast-control">
+               <button class="forecast-control__btn active">Today</button>
+               <button class="forecast-control__btn">Hourly</button>
+               <button class="forecast-control__btn">Next 7 days</button>
+               <button class="forecast-control__btn">Next 14 days</button>
+               <button class="forecast-control__btn">Next 30 days</button>
+            </nav>
+            <div class="forecast-content">
+            </div>
+            </div>
+         </div>
+         </div>
+      </section>
+      <script src="src/javascript/app.js"></script>
+      <script src="src/javascript/forecast-control.js"></script>
+   </body>
 </html>

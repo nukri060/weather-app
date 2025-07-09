@@ -570,6 +570,7 @@ header {
       -ms-flex-pack: center;
           justify-content: center;
   gap: 0.5rem;
+  margin-bottom: 40px;
 }
 .forecast-control__btn {
   display: -webkit-inline-box;
@@ -629,45 +630,176 @@ header {
 }
 
 .forecast-content {
-  width: 100%;
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  background-color: white;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2rem;
   padding: 20px;
-  margin-top: 40px;
-  background-color: rgba(255, 255, 255, 0.95);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  border-color: var(--text-card-foreground, rgba(0, 0, 0, 0.1));
+}
+
+.sun-moon-card {
+  background: -webkit-gradient(linear, left top, right bottom, from(#ffedd5), to(#fef9c3));
+  background: linear-gradient(to bottom right, #ffedd5, #fef9c3);
   border-radius: 0.5rem;
-  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  color: var(--text-card-foreground, #111827);
+  padding: 1rem;
+  width: 100%;
 }
-.forecast-content h3 {
-  font-size: 1.5rem;
-  line-height: 2rem;
-  font-weight: 700;
-  margin-bottom: 1.5rem;
-  color: #1f2937;
+.sun-moon-card h3 {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
 }
-.forecast-content::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  border-radius: inherit;
-  background: -webkit-gradient(linear, left top, right bottom, from(rgba(255, 255, 255, 0.2)), to(rgba(255, 255, 255, 0.05)));
-  background: linear-gradient(to bottom right, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
-  pointer-events: none;
-  z-index: -1;
+.sun-moon-card .sun-moon-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.75rem;
 }
-@supports not ((-webkit-backdrop-filter: blur(4px)) or (backdrop-filter: blur(4px))) {
-  .forecast-content {
-    background-color: rgba(255, 255, 255, 0.98);
-  }
+.sun-moon-card .sun-moon-detail {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.75rem;
+}
+.sun-moon-card .sun-moon-detail img {
+  width: 24px;
+  height: 24px;
+}
+.sun-moon-card .sun-moon-detail p {
+  margin: 0;
+  font-size: 1rem;
+  color: #111827;
+}
+.sun-moon-card .sun-moon-detail p:first-line {
+  font-weight: 600;
+}
+
+.precipitation-card {
+  background: -webkit-gradient(linear, left top, right bottom, from(#dbeafe), to(#e0e7ff));
+  background: linear-gradient(to bottom right, #dbeafe, #e0e7ff);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 100%;
+}
+.precipitation-card h3 {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+  font-size: 1.125rem;
+}
+.precipitation-card .precipitation-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.75rem;
+}
+.precipitation-card .precipitation-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.75rem;
+}
+.precipitation-card .precipitation-item svg {
+  height: 1.25rem;
+  width: 1.25rem;
+}
+.precipitation-card .precipitation-item svg.rain-icon {
+  color: #3b82f6;
+}
+.precipitation-card .precipitation-item svg.humidity-icon {
+  color: #2563eb;
+}
+.precipitation-card .precipitation-item .precipitation-info .label {
+  font-weight: 500;
+  color: #111827;
+}
+.precipitation-card .precipitation-item .precipitation-info .value {
+  font-size: 0.875rem;
+  color: #4b5563;
+}
+
+.wind-pressure-card {
+  background: -webkit-gradient(linear, left top, right bottom, from(#f3f4f6), to(#f1f5f9));
+  background: linear-gradient(to bottom right, #f3f4f6, #f1f5f9);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 100%;
+}
+.wind-pressure-card h3 {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
+.wind-pressure-card .wind-pressure-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.75rem;
+}
+.wind-pressure-card .wind-pressure-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.75rem;
+}
+.wind-pressure-card .wind-icon {
+  width: 24px;
+  height: 24px;
+  color: #6b7280;
+}
+.wind-pressure-card .pressure-icon {
+  width: 24px;
+  height: 24px;
+  background-color: #6b7280;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.wind-pressure-card .pressure-icon .pressure-dot {
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+}
+.wind-pressure-card .wind-pressure-info .label {
+  font-weight: 500;
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+.wind-pressure-card .wind-pressure-info .value {
+  font-weight: 600;
+  color: #111827;
+  font-size: 1rem;
 }
 
 * {
