@@ -1,0 +1,50 @@
+.precipitation-card {
+    background: linear-gradient(to bottom right, #dbeafe, #e0e7ff);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    width: 100%;
+  
+    h3 {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.75rem;
+      font-size: 1.125rem;
+    }
+  
+    .precipitation-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  
+    .precipitation-item {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+  
+      svg {
+        height: 1.25rem;
+        width: 1.25rem;
+  
+        &.rain-icon {
+          color: #3b82f6; 
+        }
+  
+        &.humidity-icon {
+          color: #2563eb; 
+        }
+      }
+  
+      .precipitation-info {
+        .label {
+          font-weight: 500;
+          color: #111827;
+        }
+  
+        .value {
+          font-size: 0.875rem;
+          color: #4b5563;
+        }
+      }
+    }
+  }

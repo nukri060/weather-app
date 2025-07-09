@@ -1,0 +1,67 @@
+.wind-pressure-card {
+  background: -webkit-gradient(linear, left top, right bottom, from(#f3f4f6), to(#f1f5f9));
+  background: linear-gradient(to bottom right, #f3f4f6, #f1f5f9);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  width: 100%;
+}
+.wind-pressure-card h3 {
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.75rem;
+}
+.wind-pressure-card .wind-pressure-details {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  gap: 0.75rem;
+}
+.wind-pressure-card .wind-pressure-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 0.75rem;
+}
+.wind-pressure-card .wind-icon {
+  width: 24px;
+  height: 24px;
+  color: #6b7280;
+}
+.wind-pressure-card .pressure-icon {
+  width: 24px;
+  height: 24px;
+  background-color: #6b7280;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+.wind-pressure-card .pressure-icon .pressure-dot {
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+}
+.wind-pressure-card .wind-pressure-info .label {
+  font-weight: 500;
+  color: #4b5563;
+  font-size: 0.875rem;
+}
+.wind-pressure-card .wind-pressure-info .value {
+  font-weight: 600;
+  color: #111827;
+  font-size: 1rem;
+}

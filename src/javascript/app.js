@@ -8,8 +8,10 @@ class WeatherApp {
       searchInput: document.querySelector('.search-form input'),
       weatherSection: document.querySelector('.weather-section'),
       currentLocation: document.querySelector('.current-location'),
+      lastUpdated: document.getElementById('last-updated'),
       buttons: document.querySelectorAll('.forecast-control__btn'),
-      forecastContent: document.querySelector('.forecast-content')
+      forecastContent: document.querySelector('.forecast-content'),
+      refreshBtn: document.querySelector('.refresh-btn')
     };
     this.init();
     this.renderPlaceholder();
@@ -18,6 +20,19 @@ class WeatherApp {
 
   init() {
     this.elements.searchForm.addEventListener('submit', e => this.handleSearch(e));
+    this.elements.refreshBtn.addEventListener('click', () => this.handleRefresh());
+    // Set initial location and weather if available (e.g., from local storage or IP lookup)
+    this.initialLoad();
+  }
+
+  async initialLoad() {
+    // You could try to get user's current location here using navigator.geolocation
+    // For now, let's set a default or prompt for a city
+    const defaultCity = "Batumi"; // Example default city
+    if (defaultCity) {
+      this.elements.searchInput.value = defaultCity;
+      await this.handleSearch(new Event('submit', { cancelable: true })); // Simulate search
+    }
   }
 
   async handleSearch(e) {
@@ -27,8 +42,8 @@ class WeatherApp {
     if (!city) return;
 
     try {
-      this.cachedData = {};
-      const { current, coord, sys, name, main, weather } = await this.fetchWeather(city);
+      this.cachedData = {}; // Clear cache on new city search
+      const { current, coord, sys, name, main, weather, oneCallData } = await this.fetchWeather(city);
       this.currentCoords = coord;
       
       await this.animateTransition(() => this.renderWeather({ 
@@ -41,16 +56,41 @@ class WeatherApp {
       }));
       
       this.elements.currentLocation.textContent = `${name}, ${sys.country}`;
+      this.updateLastUpdated();
       
-      const activeButton = Array.from(this.elements.buttons).find(btn => 
-        btn.classList.contains('active')
-      ) || this.elements.buttons[0];
+      // Ensure the "Today" button is active after a new search
+      this.elements.buttons.forEach(btn => btn.classList.remove('active'));
+      const todayButton = Array.from(this.elements.buttons).find(btn => btn.textContent.trim() === 'Today');
+      if (todayButton) {
+        todayButton.classList.add('active');
+      }
       
-      this.loadCategoryData(activeButton.textContent.trim());
+      this.loadCategoryData('Today', oneCallData); // Pass oneCallData for 'Today' category
     } catch (err) {
+      console.error("Error in handleSearch:", err);
       alert(err.message || 'City not found!');
       await this.animateTransition(() => this.renderPlaceholder());
+      this.elements.currentLocation.textContent = ''; // Clear location on error
+      this.elements.lastUpdated.textContent = ''; // Clear updated time
+      this.elements.forecastContent.innerHTML = ''; // Clear forecast content on error
     }
+  }
+
+  async handleRefresh() {
+    if (!this.elements.searchInput.value.trim()) {
+      alert("Please search for a city first.");
+      return;
+    }
+    const currentCity = this.elements.searchInput.value.trim();
+    if (currentCity) {
+      this.cachedData = {}; // Clear cache to force fresh data
+      await this.handleSearch(new Event('submit', { cancelable: true })); // Re-run search
+    }
+  }
+
+  updateLastUpdated() {
+    const now = new Date();
+    this.elements.lastUpdated.textContent = now.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
   }
 
   async fetchWeather(city) {
@@ -71,6 +111,7 @@ class WeatherApp {
       current: {
         wind: currentData.wind,
         visibility: currentData.visibility,
+        // Using optional chaining and nullish coalescing for safety
         pop: oneCallData.hourly?.[0]?.pop ?? null
       },
       coord: currentData.coord,
@@ -78,32 +119,46 @@ class WeatherApp {
       name: currentData.name,
       main: currentData.main,
       weather: currentData.weather,
-      oneCallData 
+      oneCallData // Pass the full oneCallData for other categories
     };
   }
 
   async fetchHourlyForecast(lat, lon) {
-    if (this.cachedData.hourly) return this.cachedData.hourly;
+    // Check if hourly data is already in oneCallData from initial fetchWeather
+    if (this.cachedData.oneCallData && this.cachedData.oneCallData.hourly) {
+      return this.cachedData.oneCallData.hourly;
+    }
     
+    // If not, fetch it specifically
     const res = await fetch(
       `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,daily,alerts&appid=${this.apiKey}&units=metric`
     );
     if (!res.ok) throw new Error('Failed to fetch hourly forecast');
     const data = await res.json();
-    this.cachedData.hourly = data.hourly;
+    this.cachedData.hourly = data.hourly; // Cache separate hourly data if fetched
     return this.cachedData.hourly;
   }
 
   async fetchWeeklyForecast(lat, lon) {
-    if (this.cachedData.weekly) return this.cachedData.weekly;
-    
+    // Check if daily data is already in oneCallData from initial fetchWeather
+    if (this.cachedData.oneCallData && this.cachedData.oneCallData.daily) {
+      return this.cachedData.oneCallData.daily;
+    }
+
+    // If not, fetch it specifically
     const res = await fetch(
       `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&exclude=current,minutely,hourly,alerts&appid=${this.apiKey}&units=metric`
     );
     if (!res.ok) throw new Error('Failed to fetch weekly forecast');
     const data = await res.json();
-    this.cachedData.weekly = data.daily;
+    this.cachedData.weekly = data.daily; // Cache separate weekly data if fetched
     return this.cachedData.weekly;
+  }
+}
+
+class WeatherAppUI extends WeatherApp {
+  constructor (apiKey) {
+    super(apiKey);
   }
 
   renderWeather({ weather: [w], main, wind, visibility, sys, name }) {
@@ -116,7 +171,7 @@ class WeatherApp {
       low: Math.round(main.temp_min),
       wind: wind.speed,
       humidity: main.humidity,
-      visibility: visibility / 1000,
+      visibility: visibility / 1000, // Convert meters to kilometers
       pressure: main.pressure
     });
   }
@@ -125,7 +180,7 @@ class WeatherApp {
     this.renderTemplate({
       temp: '—',
       desc: 'Enter a city',
-      icon: 'src/icons/cloud.svg',
+      icon: 'src/icons/cloud.svg', // A generic cloud icon
       feels: ' ',
       high: '—',
       low: '—',
@@ -134,6 +189,9 @@ class WeatherApp {
       visibility: '—',
       pressure: '—'
     });
+    this.elements.currentLocation.textContent = 'Location, Country'; // Reset location placeholder
+    this.elements.lastUpdated.textContent = ''; // Clear update time
+    this.elements.forecastContent.innerHTML = ''; // Clear forecast content
   }
 
   renderTemplate(data) {
@@ -180,7 +238,7 @@ class WeatherApp {
   loadSunriseSunset(sunrise, sunset) {
     return `
     <div class="sun-moon-card">
-      <h3>Today's Highlights</h3>
+      <h3>Sunrise & Sunset</h3>
       <div class="sun-moon-details">
         <div class="sun-moon-detail">
           <img src="src/icons/sunrise.svg" width="24" height="24" alt="Sunrise" />
@@ -223,40 +281,15 @@ class WeatherApp {
     </div>`;
   }
 
-  loadWindAndPressure(wind, pressure) {
-    return `
-      <div class="wind-pressure-card">
-        <h3>Wind & Pressure</h3>
-        <div class="wind-pressure-details">
-          <div class="wind-pressure-item">
-            <img src="src/icons/wind-pressure.svg" width="24" height="24" class="wind-icon" alt="Wind Icon" />
-            <div class="wind-pressure-info">
-              <div class="label">Wind Speed</div>
-              <div class="value">${wind} km/h</div>
-            </div>
-          </div>
-          <div class="wind-pressure-item">
-            <div class="pressure-icon">
-              <div class="pressure-dot"></div>
-            </div>
-            <div class="wind-pressure-info">
-              <div class="label">Pressure</div>
-              <div class="value">${pressure} hPa</div>
-            </div>
-          </div>
-        </div>
-      </div>`;
-  }
-
   renderHourlyForecast(hourlyData) {
-    let html = '<div class="hourly-forecast"><h3>Hourly Forecast</h3><div class="hourly-items">';
+    let html = '<div class="hourly-forecast"><h3>48-Hour forecast</h3><div class="hourly-items">';
 
-    hourlyData.slice(0, 24).forEach(hour => {
-      const time = new Date(hour.dt * 1000).toLocaleTimeString([], { hour: '2-digit' });
+    hourlyData.slice(0, 24).forEach(hour => { // Display next 24 hours
+      const time = new Date(hour.dt * 1000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
       const temp = Math.round(hour.temp);
       const icon = `https://openweathermap.org/img/wn/${hour.weather[0].icon}.png`;
       const pop = hour.pop ? `${Math.round(hour.pop * 100)}%` : '0%';
-
+  
       html += `
         <div class="hourly-item">
           <span class="hourly-time">${time}</span>
@@ -266,16 +299,17 @@ class WeatherApp {
         </div>
       `;
     });
-
-    html += '</div></div>';
+  
+    html += '</div></div>'; // Close .hourly-items and .hourly-forecast
     return html;
   }
+  
 
   renderWeeklyForecast(weeklyData) {
     let html = '<div class="weekly-forecast"><h3>Weekly Forecast</h3><div class="weekly-items">';
 
-    weeklyData.slice(0, 7).forEach(day => {
-      const date = new Date(day.dt * 1000).toLocaleDateString([], { weekday: 'short' });
+    weeklyData.slice(0, 7).forEach(day => { // Display next 7 days
+      const date = new Date(day.dt * 1000).toLocaleDateString([], { weekday: 'short', day: 'numeric', month: 'short' });
       const maxTemp = Math.round(day.temp.max);
       const minTemp = Math.round(day.temp.min);
       const icon = `https://openweathermap.org/img/wn/${day.weather[0].icon}.png`;
@@ -298,8 +332,11 @@ class WeatherApp {
     return html;
   }
 
-  async loadCategoryData(category) {
-    if (!this.currentCoords) return;
+  async loadCategoryData(category, oneCallData = null) {
+    if (!this.currentCoords) {
+      this.elements.forecastContent.innerHTML = '<div class="info">Search for a city to see the forecast.</div>';
+      return;
+    }
     
     this.elements.forecastContent.innerHTML = '<div class="loading">Loading...</div>';
 
@@ -308,41 +345,68 @@ class WeatherApp {
       
       switch (category) {
         case 'Today':
-          const weatherData = await this.fetchWeather(this.elements.currentLocation.textContent.split(',')[0].trim());
-          content += this.loadSunriseSunset(weatherData.sys.sunrise, weatherData.sys.sunset);
-          content += this.loadPrecipitation(weatherData.main.humidity, weatherData.current.pop);
-          content += this.loadWindAndPressure(weatherData.current.wind.speed, weatherData.main.pressure);
+          // If oneCallData is already passed from handleSearch, use it
+          // Otherwise, fetch fresh data for 'Today' highlights
+          const todayData = oneCallData || await this.fetchWeather(this.elements.searchInput.value.trim() || this.elements.currentLocation.textContent.split(',')[0].trim());
+          console.log(todayData);
+          content += this.loadSunriseSunset(todayData.sys.sunrise, todayData.sys.sunset);
+          content += this.loadPrecipitation(todayData.main.humidity, todayData.current.pop);
+          content += this.loadWindAndPressure(todayData.current.wind.speed, todayData.main.pressure);
           break;
 
         case 'Hourly':
-          const hourlyData = await this.fetchHourlyForecast(this.currentCoords.lat, this.currentCoords.lon);
-          content = this.renderHourlyForecast(hourlyData);
+          // Prioritize cached oneCallData if available from initial fetchWeather, otherwise fetch
+          const hourlyData = oneCallData?.hourly || await this.fetchHourlyForecast(this.currentCoords.lat, this.currentCoords.lon);
+          content += this.renderHourlyForecast(hourlyData);
           break;
 
-        case 'Week':
-          const weeklyData = await this.fetchWeeklyForecast(this.currentCoords.lat, this.currentCoords.lon);
+        case 'Next 7 days':
+          // Prioritize cached oneCallData if available from initial fetchWeather, otherwise fetch
+          const weeklyData = oneCallData?.daily || await this.fetchWeeklyForecast(this.currentCoords.lat, this.currentCoords.lon);
           content = this.renderWeeklyForecast(weeklyData);
           break;
 
+        case 'Next 14 days':
+            // You would need to adjust the slice for daily data (e.g., .slice(0, 14))
+            // The OpenWeatherMap One Call API provides up to 8 days of daily forecast.
+            // For 14 or 30 days, you would need to use a different API (e.g., a commercial one)
+            // or combine data from multiple sources/calls if supported.
+            // For demonstration, we'll use the available daily data and note the limitation.
+            const weeklyData14 = oneCallData?.daily || await this.fetchWeeklyForecast(this.currentCoords.lat, this.currentCoords.lon);
+            content = this.renderWeeklyForecast(weeklyData14.slice(0, 14)); // Still limited to max 8 days from OWM One Call
+            break;
+
+        case 'Next 30 days':
+            // Similar to 14 days, OpenWeatherMap One Call API does not provide 30-day forecast.
+            // You'd need a different API for this.
+            content = '<div class="info">30-day forecast data is not available through this API.</div>';
+            break;
+
         default:
           console.warn('Unknown category:', category);
+          content = '<div class="error">Unknown forecast category.</div>';
       }
 
       this.elements.forecastContent.innerHTML = content;
     } catch (err) {
       console.error('Failed to load category data:', err);
-      this.elements.forecastContent.innerHTML = '<div class="error">Failed to load data</div>';
+      this.elements.forecastContent.innerHTML = '<div class="error">Failed to load data for this category.</div>';
     }
   }
 
   chooseCategory() {
     this.elements.buttons.forEach(button => {
       button.addEventListener('click', () => {
+        // Remove active class from all buttons
         this.elements.buttons.forEach(btn => btn.classList.remove('active'));
+        // Add active class to the clicked button
         button.classList.add('active');
         
-        if (this.elements.currentLocation.textContent) {
+        // Load data only if a city has been successfully searched
+        if (this.elements.currentLocation.textContent && this.currentCoords) {
           this.loadCategoryData(button.textContent.trim());
+        } else {
+          this.elements.forecastContent.innerHTML = '<div class="info">Please search for a city first.</div>';
         }
       });
     });
@@ -352,14 +416,39 @@ class WeatherApp {
     const card = this.elements.weatherSection.querySelector('.weather-card');
     if (card) {
       card.classList.replace('fade-in', 'fade-out');
-      await new Promise(resolve => setTimeout(resolve, 400));
+      await new Promise(resolve => setTimeout(resolve, 400)); // Match CSS transition duration
     }
     renderFn();
     const newCard = this.elements.weatherSection.querySelector('.weather-card');
     if (newCard) newCard.classList.replace('fade-out', 'fade-in');
   }
+
+  loadWindAndPressure(wind, pressure) {
+    return `
+      <div class="wind-pressure-card">
+        <h3>Wind & Pressure</h3>
+        <div class="wind-pressure-details">
+          <div class="wind-pressure-item">
+            <img src="src/icons/wind-pressure.svg" width="24" height="24" class="wind-icon" alt="Wind Icon" />
+            <div class="wind-pressure-info">
+              <div class="label">Wind Speed</div>
+              <div class="value">${wind}${typeof wind === 'number' ? ' km/h' : ''}</div>
+            </div>
+          </div>
+          <div class="wind-pressure-item">
+            <img src="src/icons/gauge.svg" width="24" height="24" class="pressure-icon" alt="Pressure Icon" />
+            <div class="wind-pressure-info">
+              <div class="label">Pressure</div>
+              <div class="value">${pressure}${typeof pressure === 'number' ? ' hPa' : ''}</div>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
 }
 
+// Ensure the DOM is fully loaded before initializing the app
 document.addEventListener('DOMContentLoaded', () => {
-  const app = new WeatherApp('3894f2877ca26ffd99eeab17f4762833');
+  // Replace 'YOUR_API_KEY_HERE' with your actual OpenWeatherMap API key
+  const app = new WeatherAppUI('3894f2877ca26ffd99eeab17f4762833'); 
 });

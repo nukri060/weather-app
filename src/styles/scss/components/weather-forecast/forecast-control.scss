@@ -1,0 +1,60 @@
+.forecast-control {
+    display: flex;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-bottom: 40px;
+
+    &__btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem; 
+        white-space: nowrap;
+        border-radius: 0.375rem; 
+        font-size: 0.875rem; 
+        font-weight: 500; 
+        height: 2.5rem;
+        padding: 0.5rem 1rem; 
+        transition: all 300ms cubic-bezier(0.4, 0, 0.2, 1);
+        background: #fff3;
+        color: white; 
+        border: 1px solid #ffffff4d; 
+        cursor: pointer;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); 
+
+
+        &:focus-visible {
+            outline: 2px solid transparent;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 2px currentColor, 0 0 0 4px rgba(255, 255, 255, 0.5); 
+        }
+
+
+        &:disabled {
+            pointer-events: none; 
+            opacity: 0.5; 
+        }
+
+        &:hover {
+            color: black;
+            background-color: rgba(255, 255, 255, 0.363);
+        }
+
+        &.active {
+            background-color: white;
+            color: #2563eb;
+            box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+
+            &:hover {
+                color: #2563eb;
+            }
+        }
+
+        svg {
+            pointer-events: none; 
+            width: 1rem; 
+            height: 1rem;
+            flex-shrink: 0; 
+        }
+    }
+}

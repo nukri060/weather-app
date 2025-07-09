@@ -3,7 +3,7 @@
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Document</title>
+      <title>Weather App</title>
       <link rel="stylesheet" href="src/styles/css/main.css" />
    </head>
    <body>
@@ -11,8 +11,8 @@
          <div class="header-container">
             <div class="location-info">
                <img src="src/icons/map-pin.svg" width="24" height="24" class="lucide lucide-map-pin h-5 w-5" alt="Location" />
-               <h3 class="current-location">Batumi, GE</h3>
-               <p>Updated 2:01:21 PM</p>
+               <h3 class="current-location"></h3>
+               <p>Updated <span id="last-updated"></span></p>
             </div>
             <div class="search-controls">
                <div class="search-group">
@@ -61,11 +61,11 @@
             </nav>
             <div class="forecast-content">
             </div>
+
             </div>
          </div>
          </div>
       </section>
       <script src="src/javascript/app.js"></script>
-      <script src="src/javascript/forecast-control.js"></script>
-   </body>
+      </body>
 </html>

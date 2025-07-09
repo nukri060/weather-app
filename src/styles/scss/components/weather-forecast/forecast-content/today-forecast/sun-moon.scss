@@ -1,0 +1,40 @@
+.sun-moon-card {
+    background: linear-gradient(to bottom right, #ffedd5, #fef9c3);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    width: 100%;
+  
+    h3 {
+      font-weight: 600;
+      color: #374151;
+      margin-bottom: 0.75rem;
+      font-size: 1.125rem;
+    }
+  
+    .sun-moon-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+  
+    .sun-moon-detail {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+  
+      img {
+        width: 24px;
+        height: 24px;
+      }
+  
+      p {
+        margin: 0;
+        font-size: 1rem;
+        color: #111827;
+  
+        &:first-line {
+          font-weight: 600;
+        }
+      }
+    }
+  }

@@ -1,0 +1,94 @@
+.weekly-forecast {
+    width: 100%;
+    
+    h3 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+      margin-bottom: 1rem;
+    }
+  
+    .weekly-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem; // Adjust as needed for spacing between items
+    }
+  }
+  
+  .weekly-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
+    background: linear-gradient(to right, #eff6ff, #e0e7ff); // from-blue-50 to-indigo-50
+    border-radius: 0.5rem; // rounded-lg
+    border: 1px solid #bfdbfe; // border-blue-100
+    transition: all 0.2s ease-in-out; // transition-all duration-200
+  
+    &:hover {
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); // hover:shadow-md
+      transform: scale(1.02); // hover:scale-[1.02]
+    }
+  
+    .weekly-day {
+      flex: 1;
+      min-width: 0;
+      font-weight: 600;
+      color: #374151; // text-gray-800
+      font-size: 0.875rem; // Equivalent to text-sm if we consider the example's date size
+    }
+  
+    img {
+      // You might want to size your weather icons here directly
+      width: 2.5rem; // Example size, adjust as needed
+      height: 2.5rem; // Example size, adjust as needed
+      margin: 0 1rem; // Add some spacing around the image
+    }
+  
+    .weekly-temps {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem; // Space between max and min temp
+      flex: 1;
+      justify-content: flex-end; // Pushes to the right
+      text-align: right; // Aligns text to the right within its flex item
+  
+      .weekly-max {
+        font-weight: 700;
+        font-size: 1.125rem; // text-lg
+        color: #374151; // text-gray-800
+      }
+  
+      .weekly-min {
+        font-size: 0.875rem; // text-sm
+        color: #6b7280; // text-gray-500
+      }
+    }
+  
+    .weekly-pop {
+      flex: 0 0 auto; // Don't grow or shrink, take only necessary space
+      margin-left: 1rem; // Space from the temperatures
+      font-size: 0.75rem; // Equivalent to text-xs
+      color: #2563eb; // text-blue-600
+    }
+  
+    // Media queries for responsiveness, similar to Tailwind's sm/md
+    @media (max-width: 640px) { // Tailwinds 'sm' breakpoint is 640px
+      flex-wrap: wrap; // Allow items to wrap on smaller screens
+      justify-content: center; // Center items when wrapped
+  
+      .weekly-day,
+      .weekly-temps,
+      .weekly-pop {
+        flex-basis: 100%; // Take full width
+        text-align: center; // Center text
+        margin-left: 0; // Remove left margin
+        margin-top: 0.5rem; // Add some top margin when wrapped
+      }
+  
+      img {
+        order: -1; // Move image to the top when wrapped
+        margin: 0.5rem auto; // Center image
+      }
+    }
+  }
