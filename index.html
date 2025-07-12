@@ -3,69 +3,89 @@
    <head>
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <meta name="description" content="Weather application with current conditions and forecasts" />
       <title>Weather App</title>
       <link rel="stylesheet" href="src/styles/css/main.css" />
    </head>
    <body>
-      <header>
+      <header class="main-header">
          <div class="header-container">
             <div class="location-info">
-               <img src="src/icons/map-pin.svg" width="24" height="24" class="lucide lucide-map-pin h-5 w-5" alt="Location" />
-               <h3 class="current-location"></h3>
-               <p>Updated <span id="last-updated"></span></p>
+               <img src="src/icons/map-pin.svg" width="24" height="24" class="lucide lucide-map-pin h-5 w-5" alt="Location icon" />
+               <h1 class="current-location">Weather App</h1>
+               <div class="time-container">
+                  <p>Updated</p> 
+                  <time id="last-updated" datetime=""></time></div>
             </div>
-            <div class="search-controls">
+            <nav class="search-controls" aria-label="Search and controls">
                <div class="search-group">
-                  <form class="search-form flex-1">
-                     <img src="src/icons/search.svg" width="24" height="24" alt="Search" />
-                     <input placeholder="Search location..." value="" />
+                  <form class="search-form flex-1" role="search">
+                     <label for="city-search" class="sr-only">Search for a city</label>
+                     <img src="src/icons/search.svg" width="24" height="24" alt="Search icon" />
+                     <input 
+                        id="city-search"
+                        type="search" 
+                        placeholder="Search location..." 
+                        value="" 
+                        aria-describedby="search-description"
+                     />
+                     <span id="search-description" class="sr-only">Enter a city name to get weather information</span>
                   </form>
-                  <button class="refresh-btn">
-                  <img src="src/icons/refresh-cw.svg" width="24" height="24" alt="Refresh" />
+                  <button class="refresh-btn" aria-label="Refresh weather data">
+                     <img src="src/icons/refresh-cw.svg" width="24" height="24" alt="Refresh icon" />
                   </button>
                </div>
-               <div class="theme-group">
-                  <button class="theme-btn active">
-                  <img src="src/icons/sun.svg" width="24" height="24" alt="Day" />
-                  <span class="hidden sm-inline ml-1">Day</span>
+               <div class="theme-group" role="group" aria-label="Theme selection">
+                  <button class="theme-btn active" aria-pressed="true">
+                     <img src="src/icons/sun.svg" width="24" height="24" alt="Day theme" />
+                     <span class="hidden sm-inline ml-1">Day</span>
                   </button>
-                  <button class="theme-btn">
-                  <img src="src/icons/moon.svg" width="24" height="24" alt="Night" />
-                  <span class="hidden sm-inline ml-1">Night</span>
+                  <button class="theme-btn" aria-pressed="false">
+                     <img src="src/icons/moon.svg" width="24" height="24" alt="Night theme" />
+                     <span class="hidden sm-inline ml-1">Night</span>
                   </button>
-                  <button class="theme-btn">
-                  <img src="src/icons/palette.svg" width="24" height="24" alt="Gradient" />
-                  <span class="hidden sm-inline ml-1">Gradient</span>
+                  <button class="theme-btn" aria-pressed="false">
+                     <img src="src/icons/palette.svg" width="24" height="24" alt="Gradient theme" />
+                     <span class="hidden sm-inline ml-1">Gradient</span>
                   </button>
                </div>
-               <div class="unit-group">
-                  <button class="unit-btn active">°C</button>
-                  <button class="unit-btn">°F</button>
+               <div class="unit-group" role="group" aria-label="Temperature unit selection">
+                  <button class="unit-btn active" aria-pressed="true">°C</button>
+                  <button class="unit-btn" aria-pressed="false">°F</button>
                </div>
-            </div>
+            </nav>
          </div>
       </header>
-      <section class="weather-section" aria-label="Current weather">
-         <div class="container">
-            <p class="weather-section__placeholder">Enter a city</p>
-         </div>
-      </section>
-      <section class="weather-forecast" aria-label="Weather forecast">
-         <div class="weather-forecast-wrapper">
-            <nav class="forecast-control">
-               <button class="forecast-control__btn active">Today</button>
-               <button class="forecast-control__btn">Hourly</button>
-               <button class="forecast-control__btn">Next 7 days</button>
-               <button class="forecast-control__btn">Next 14 days</button>
-               <button class="forecast-control__btn">Next 30 days</button>
-            </nav>
-            <div class="forecast-content">
-            </div>
 
+      <main>
+         <section class="weather-section" aria-label="Current weather conditions">
+            <div class="container">
+               <p class="weather-section__placeholder">Enter a city</p>
             </div>
-         </div>
-         </div>
-      </section>
+         </section>
+
+         <section class="weather-forecast" aria-label="Weather forecast">
+            <div class="weather-forecast-wrapper">
+               <nav class="forecast-control" aria-label="Forecast period selection">
+                  <button class="forecast-control__btn active" aria-pressed="true">Today</button>
+                  <button class="forecast-control__btn" aria-pressed="false">Hourly</button>
+                  <button class="forecast-control__btn" aria-pressed="false">Next 7 days</button>
+                  <button class="forecast-control__btn" aria-pressed="false">Next 14 days</button>
+                  <button class="forecast-control__btn" aria-pressed="false">Next 30 days</button>
+               </nav>
+               <div class="forecast-content" role="region" aria-live="polite">
+               </div>
+            </div>
+         </section>
+      </main>
+
+      <footer class="sr-only">
+         <p>Weather data provided by OpenWeatherMap API</p>
+      </footer>
+
+      <script src="src/javascript/WeatherApp.js"></script>
+      <script src="src/javascript/WeatherAppUI.js"></script>
+      <script src="src/javascript/themeChanger.js"></script>
       <script src="src/javascript/app.js"></script>
-      </body>
+   </body>
 </html>

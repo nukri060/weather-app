@@ -40,7 +40,7 @@
         font-size: 0.75rem;
         font-weight: 500;
     }
-    // Corresponds to <div class="text-sm font-medium text-gray-600 mb-3">16:00</div>
+
     .hourly-time {
       font-size: 0.875rem;
       font-weight: 500;
@@ -48,7 +48,6 @@
       margin-bottom: 0.75rem;
     }
   
-    // Corresponds to <div class="mb-3 flex justify-center">
     > div:nth-child(2) {
       margin-bottom: 0.75rem;
       display: flex;
@@ -61,13 +60,10 @@
       color: #f59e0b;
     }
   
-    // Corresponds to <div class="font-bold text-xl text-gray-800 mb-2">26°</div>
     > div:nth-child(3) {
       font-weight: 700;
       font-size: 1.25rem;
       color: #1f2937;
       margin-bottom: 0.5rem;
     }
-  
-    // Corresponds to <div class="text-xs text-blue-600 font-medium">0% rain</div>
   }
